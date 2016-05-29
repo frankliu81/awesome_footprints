@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+
+  // Bootstrap body padding for fixed navbar
+  body { padding-top: 60px; }
+
+  .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #008CBA;
+  }
