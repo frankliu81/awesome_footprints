@@ -17,9 +17,32 @@ c4 = Category.create(name: "Water Use")
 c5 = Category.create(name: "Waste")
 
 ili1 = ImpactLineItem.create(name: "Total Impact")
-ili2 = ImpactLineItem.create(name: "Total Source")
-ili3 = ImpactLineItem.create(name: "Source")
-ili4 = ImpactLineItem.create(name: "Manufacturing")
-ili5 = ImpactLineItem.create(name: "Distribution")
-ili6 = ImpactLineItem.create(name: "Use Phase")
-ili7 = ImpactLineItem.create(name: "End of Life")
+ili2 = ImpactLineItem.create(name: "Source")
+ili3 = ImpactLineItem.create(name: "Manufacturing")
+ili4 = ImpactLineItem.create(name: "Distribution")
+ili5 = ImpactLineItem.create(name: "Use Phase")
+ili6 = ImpactLineItem.create(name: "End of Life")
+
+
+product = Product.new(name: "Nike Shoes")
+# set up associations
+product.user = u1
+ActiveRecord::Base.transaction do
+  if product.save
+    ImpactLineItem.all.each do |impact_line_item|
+      if impact_line_item != "created_at" && impact_line_item != "updated_at"
+        product_impact_line_item = product.product_impact_line_items.create(product_id: product.id, impact_line_item_id: impact_line_item.id)
+
+        Category.all.each do |category|
+          if category != "created_at" && category != "updated_at"
+            # byebug
+            # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
+            ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
+                                category_id: category.id,
+                                value: 1 + rand(10))
+          end
+        end
+      end
+    end
+  end
+end
