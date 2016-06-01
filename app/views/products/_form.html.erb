@@ -1,0 +1,47 @@
+<%= simple_form_for(@product) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%#= f.input :parent_product_id %>
+    <%#= f.association :user %>
+
+    <table class="table table-medium">
+      <thead>
+        <tr>
+          <th class="col-md-2"></th>
+          <% Category.all.each do |category| %>
+            <% if category != "created_at" && category != "updated_at"  %>
+              <th class="col-md-2"><%= category.name %></th>
+            <% end %>
+          <% end %>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <% ImpactLineItem.all.each do |impact_line_item| %>
+          <% if impact_line_item != "created_at" && impact_line_item != "updated_at"  %>
+            <tr>
+               <td><%= impact_line_item.name %></td>
+               <% Category.all.each do |category| %>
+                 <% if category != "created_at" && category != "updated_at"  %>
+                   <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.name%>][<%=category.name%>]"/></td>
+                 <% end %>
+               <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+
+     </tbody>
+
+
+    </table>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
