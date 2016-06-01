@@ -34,19 +34,41 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     #byebug
+    params.require(:product).permit(:name, :parent_product_id, :user_id)
     @product = Product.new(product_params)
 
     # set up associations
     @product.user = current_user
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render json: @product, status: :created }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+    ActiveRecord::Base.transaction do
+
+      respond_to do |format|
+        if @product.save
+
+          ImpactLineItem.all.each do |impact_line_item|
+            if impact_line_item != "created_at" && impact_line_item != "updated_at"
+              product_impact_line_item = @product.product_impact_line_items.create(product_id: @product.id, impact_line_item_id: impact_line_item.id)
+
+              Category.all.each do |category|
+                if category != "created_at" && category != "updated_at"
+                  # byebug
+                  # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
+                  ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
+                                      category_id: category.id,
+                                      value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
+                end
+              end
+            end
+          end
+
+          format.html { redirect_to @product, notice: 'Product was successfully created.' }
+          format.json { render json: @product, status: :created }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
+
     end
   end
 

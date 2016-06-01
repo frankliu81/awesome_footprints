@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 20160601010259) do
   end
 
   create_table "impact_entries", force: :cascade do |t|
-    t.float    "value"
-    t.string   "unit"
+    t.float    "value",                       default: 0.0
+    t.string   "unit",                        default: ""
     t.integer  "product_impact_line_item_id"
     t.integer  "category_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "impact_entries", ["category_id"], name: "index_impact_entries_on_category_id", using: :btree

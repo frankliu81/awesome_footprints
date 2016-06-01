@@ -5,15 +5,38 @@
   <%= @product.name %>
 </p>
 
-<p>
-  <strong>Parent product:</strong>
-  <%= @product.parent_product_id %>
-</p>
+<table class="table table-medium">
+  <thead>
+    <tr>
+      <th class="col-md-2"></th>
+      <% Category.all.each do |category| %>
+        <% if category != "created_at" && category != "updated_at"  %>
+          <th class="col-md-2"><%= category.name %></th>
+        <% end %>
+      <% end %>
+    </tr>
 
-<p>
-  <strong>User:</strong>
-  <%= @product.user %>
-</p>
+  </thead>
+
+  <tbody>
+    <% product_impact_line_items = ProductImpactLineItem.where("product_id = #{@product.id}") %>
+    <% product_impact_line_items.all.each do |product_impact_line_item| %>
+      <% if product_impact_line_item.impact_line_item != "created_at" && product_impact_line_item.impact_line_item != "updated_at"  %>
+        <tr>
+           <td><%= product_impact_line_item.impact_line_item.name %></td>
+           <% impact_entries = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}") %>
+           <% Category.all.each do |category| %>
+             <% if category != "created_at" && category != "updated_at"  %>
+               <%# byebug %>
+               <td class="col-md-2"> <%= impact_entries.where("category_id = #{category.id}").first.value %></td>
+             <% end %>
+           <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+
+ </tbody>
+</table>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

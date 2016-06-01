@@ -27,7 +27,7 @@
                <td><%= impact_line_item.name %></td>
                <% Category.all.each do |category| %>
                  <% if category != "created_at" && category != "updated_at"  %>
-                   <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.name%>][<%=category.name%>]"/></td>
+                   <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]"/></td>
                  <% end %>
                <% end %>
             </tr>
