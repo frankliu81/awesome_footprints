@@ -24,12 +24,13 @@
       <% if product_impact_line_item.impact_line_item != "created_at" && product_impact_line_item.impact_line_item != "updated_at"  %>
         <tr>
            <td><%= product_impact_line_item.impact_line_item.name %></td>
-           <% impact_entries = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}") %>
+           <%# impact_entries = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}") %>
            <% Category.all.each do |category| %>
-             <% if category != "created_at" && category != "updated_at"  %>
+              <% if category != "created_at" && category != "updated_at"  %>
                <%# byebug %>
-               <td class="col-md-2"> <%= impact_entries.where("category_id = #{category.id}").first.value %></td>
-             <% end %>
+               <%# <td class="col-md-2"> <%= impact_entries.where("category_id = #{category.id}").first.value</td> %>
+               <td class="col-md-2"> <%= ImpactEntry.where("product_impact_line_item_id=#{product_impact_line_item.id}").find_by_category_id(category.id).value %></td>
+              <% end %>
            <% end %>
         </tr>
       <% end %>

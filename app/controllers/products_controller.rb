@@ -75,15 +75,34 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+
+    ActiveRecord::Base.transaction do
+      respond_to do |format|
+        if @product.update(product_params)
+
+          ImpactLineItem.all.each do |impact_line_item|
+            if impact_line_item != "created_at" && impact_line_item != "updated_at"
+              product_impact_line_item = @product.product_impact_line_items.where("product_id = #{@product.id}").find_by_impact_line_item_id(impact_line_item.id)
+              
+              Category.all.each do |category|
+                if category != "created_at" && category != "updated_at"
+                  product_impact_line_item = ProductImpactLineItem.where("product_id = #{@product.id}").find_by_impact_line_item_id(impact_line_item.id)
+                  impact_entry = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}").find_by_category_id(category.id)
+                  impact_entry.update( value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
+                end
+              end
+            end
+          end
+
+          format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # DELETE /products/1

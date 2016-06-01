@@ -27,7 +27,12 @@
                <td><%= impact_line_item.name %></td>
                <% Category.all.each do |category| %>
                  <% if category != "created_at" && category != "updated_at"  %>
-                   <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]"/></td>
+                  <% if @product.persisted? %>
+                    <% product_impact_line_item = ProductImpactLineItem.where("product_id = #{@product.id}").find_by_impact_line_item_id(impact_line_item.id) %>
+                    <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]" value="<%= ImpactEntry.where(" product_impact_line_item_id=#{product_impact_line_item.id}").find_by_category_id(category.id).value%>" /> </td>
+                  <% else %>
+                    <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]"/></td>
+                  <% end %>
                  <% end %>
                <% end %>
             </tr>
