@@ -82,12 +82,11 @@ class ProductsController < ApplicationController
 
           ImpactLineItem.all.each do |impact_line_item|
             if impact_line_item != "created_at" && impact_line_item != "updated_at"
-              product_impact_line_item = @product.product_impact_line_items.where("product_id = #{@product.id}").find_by_impact_line_item_id(impact_line_item.id)
-              
+              product_impact_line_item = @product.product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
+
               Category.all.each do |category|
                 if category != "created_at" && category != "updated_at"
-                  product_impact_line_item = ProductImpactLineItem.where("product_id = #{@product.id}").find_by_impact_line_item_id(impact_line_item.id)
-                  impact_entry = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}").find_by_category_id(category.id)
+                  impact_entry = product_impact_line_item.find_impact_entry(category)
                   impact_entry.update( value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
                 end
               end

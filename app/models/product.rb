@@ -11,4 +11,9 @@ class Product < ActiveRecord::Base
   has_many :impact_line_items, through: :product_line_items
 
   validates :name, presence: true, uniqueness: true
+
+  def find_product_impact_line_item(impact_line_item)
+    product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
+  end
+  
 end

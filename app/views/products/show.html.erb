@@ -19,17 +19,15 @@
   </thead>
 
   <tbody>
-    <% product_impact_line_items = ProductImpactLineItem.where("product_id = #{@product.id}") %>
+    <% product_impact_line_items = @product.product_impact_line_items %>
     <% product_impact_line_items.all.each do |product_impact_line_item| %>
       <% if product_impact_line_item.impact_line_item != "created_at" && product_impact_line_item.impact_line_item != "updated_at"  %>
         <tr>
            <td><%= product_impact_line_item.impact_line_item.name %></td>
-           <%# impact_entries = ImpactEntry.where("product_impact_line_item_id = #{product_impact_line_item.id}") %>
            <% Category.all.each do |category| %>
               <% if category != "created_at" && category != "updated_at"  %>
                <%# byebug %>
-               <%# <td class="col-md-2"> <%= impact_entries.where("category_id = #{category.id}").first.value</td> %>
-               <td class="col-md-2"> <%= ImpactEntry.where("product_impact_line_item_id=#{product_impact_line_item.id}").find_by_category_id(category.id).value %></td>
+               <td class="col-md-2"> <%= product_impact_line_item.find_impact_entry(category).value %></td>
               <% end %>
            <% end %>
         </tr>
