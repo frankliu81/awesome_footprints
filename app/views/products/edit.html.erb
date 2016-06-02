@@ -1,6 +1,7 @@
 <h1>Editing Product</h1>
 
 <%= render 'form' %>
+<%#= react_component "ProductImpactTable", {product: ProductSerializer.new(@product).serializable_hash} %>
 
 <%= link_to 'Show', @product %> |
 <%= link_to 'Back', products_path %>

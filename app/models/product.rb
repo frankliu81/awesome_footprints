@@ -8,12 +8,12 @@ class Product < ActiveRecord::Base
   has_many :child_products, :class_name => "Event", :foreign_key => "parent_product_id"
 
   has_many :product_impact_line_items, dependent: :destroy
-  has_many :impact_line_items, through: :product_line_items
+  has_many :impact_line_items, through: :product_impact_line_items
 
   validates :name, presence: true, uniqueness: true
 
   def find_product_impact_line_item(impact_line_item)
     product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
   end
-  
+
 end

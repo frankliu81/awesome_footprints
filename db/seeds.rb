@@ -23,10 +23,8 @@ ili4 = ImpactLineItem.create(name: "Distribution")
 ili5 = ImpactLineItem.create(name: "Use Phase")
 ili6 = ImpactLineItem.create(name: "End of Life")
 
+product = Product.new(name: "Clif Bar", user: u1, barcode_type: "UPC_A", barcode: "722252212122")
 
-product = Product.new(name: "Nike Shoes")
-# set up associations
-product.user = u1
 ActiveRecord::Base.transaction do
   if product.save
     ImpactLineItem.all.each do |impact_line_item|

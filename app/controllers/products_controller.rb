@@ -21,6 +21,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def lookup
+    barcode = params[:barcode]
+    barcode_type = params[:barcode_type]
+    scanned_product = Product.where(barcode_type: barcode_type, barcode: barcode).first
+    respond_to do |format|
+      format.json { render json: scanned_product, serializer: ProductLookupSerializer }
+    end
+  end
+
   # GET /products/new
   def new
     @product = Product.new

@@ -3,6 +3,8 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.input :barcode_type, label: "Barcode Type" %>
+    <%= f.input :barcode, label: "Barcode" %>
     <%#= f.input :parent_product_id %>
     <%#= f.association :user %>
 
@@ -11,9 +13,7 @@
         <tr>
           <th class="col-md-2"></th>
           <% Category.all.each do |category| %>
-            <% if category != "created_at" && category != "updated_at"  %>
               <th class="col-md-2"><%= category.name %></th>
-            <% end %>
           <% end %>
         </tr>
 
@@ -22,25 +22,24 @@
       <tbody>
 
         <% ImpactLineItem.all.each do |impact_line_item| %>
-          <% if impact_line_item != "created_at" && impact_line_item != "updated_at"  %>
             <tr>
                <td><%= impact_line_item.name %></td>
                <% Category.all.each do |category| %>
-                 <% if category != "created_at" && category != "updated_at"  %>
+                  <%# byebug %>
                   <% if @product.persisted? %>
                     <% product_impact_line_item = @product.find_product_impact_line_item(impact_line_item)  %>
                     <td class="col-md-2">
-                      <input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]" value="<%= product_impact_line_item.find_impact_entry(category).value %>" />
+                      <input type="text"
+                              name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]"
+                              value="<%= product_impact_line_item.find_impact_entry(category).value %>"
+                              <%#= impact_line_item.name == "Total Impact" ? "disabled" : "" %> />
                     </td>
                   <% else %>
                     <td class="col-md-2"><input type="text" name="impact_entry[<%=impact_line_item.id%>][<%=category.id%>]"/></td>
                   <% end %>
-                 <% end %>
                <% end %>
             </tr>
-          <% end %>
-        <% end %>
-
+       <% end %>
      </tbody>
 
 

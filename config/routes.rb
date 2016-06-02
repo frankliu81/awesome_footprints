@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
+  get "/products/lookup" => "products#lookup"
   resources :products
-  resources :products
+
   devise_for :users
 
   get "/about" => "home#about"
-  
+
   root to: "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  # 
+  #
   # Example resource route with options:
   #   resources :products do
   #     member do
