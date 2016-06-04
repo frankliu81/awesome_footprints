@@ -8,9 +8,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- <p class="notice"><%#= notice %></p>
-    <p class="alert"><%#= alert %></p> -->
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -65,6 +62,19 @@
       </div>
     </nav>
 
+    <p id="notice"><%= flash[:notice] %></p>
+    <p id="alert"><%= flash[:alert] %></p>
+
+    <!-- <% if flash[:notice] %>
+      <div id="notice" class="notice notice-success">
+        <%#= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div id="alert" class="alert alert-danger">
+        <%#= flash[:alert] %>
+      </div>
+    <% end %>
+     -->
     <%= yield %>
   </div>
 </body>

@@ -1,0 +1,3 @@
+$("#notice").html("<%= flash[:notice] %>");
+$("#child-products").prepend("<%= j render partial: '/products/child_product', locals: {parent_product: parent_product, child_product: child_product, style: 'display: none'} %>");
+$("#<%= dom_id(child_product) %>").fadeIn(500);

@@ -1,5 +1,6 @@
 <h2>Product</h2>
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%#= flash[:notice] %></p>
+<p id="alert"><%#= flash[:alert] %></p> -->
 
 <p>
   <strong>Product Id:</strong>
@@ -21,7 +22,7 @@
   <%= @product.barcode %>
 </p>
 
-<table class="table table-medium">
+<table class="table table-bordered table-medium">
   <thead>
     <tr>
       <th class="col-md-2"></th>
@@ -38,7 +39,7 @@
     <% product_impact_line_items = @product.product_impact_line_items %>
     <% product_impact_line_items.all.each do |product_impact_line_item| %>
         <tr>
-           <td><%= product_impact_line_item.impact_line_item.name %></td>
+          <th scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
            <% Category.all.each do |category| %>
                <%# byebug %>
                <td class="col-md-2"> <%= product_impact_line_item.find_impact_entry(category).value %></td>
@@ -50,15 +51,19 @@
  </tbody>
 </table>
 
+
+<%= link_to 'Edit Product', edit_product_path(@product), class: "btn btn-primary" %>
+<%= link_to 'Back', products_path, class: "btn btn-primary" %>
+
 <br>
 <%# byebug %>
 <h3>Source Products</h3>
 
-<div id="product-child-form">
-  <%= render "/products/child_form" %>
+<div id="child-product-form">
+  <%= render "/products/child_product_form", parent_product: @product %>
 </div>
 
-<table class="table table-medium">
+<table class="table table-medium" id="child-products">
   <thead>
     <tr>
       <th class="col-md-2">Product Id</th>
@@ -71,23 +76,10 @@
   </thead>
 
   <tbody>
-    <% @product.children.each do |child_product| %>
-        <tr>
-           <td class="col-md-2"><%= child_product.id %></td>
-           <td class="col-md-2"><%= child_product.name %></td>
-           <td class="col-md-2"><%= @product.child_quantity(child_product) %></td>
-           <td class="col-md-2"><%= link_to 'Show', child_product %></td>
-           <td class="col-md-2">  <%= link_to "Remove",
-                                    product_rel_path(ProductRel.find_by_parent_child(@product, child_product)),
-                                    data: {confirm: "Are you sure?"},
-                                    method: :delete, remote: true %>
-                                  </td>
-           <td class="col-md-2"></td>
-        </tr>
-    <% end %>
+    <div>
+      <% @product.children.each do |child_product| %>
+        <%= render partial: "/products/child_product", locals: {parent_product: @product, child_product: child_product} %>
+      <% end %>
+    </div>
  </tbody>
 </table>
-
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>

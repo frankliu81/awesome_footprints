@@ -1,0 +1,13 @@
+<%# byebug  %>
+<tr id="<%= dom_id(child_product) %>" style="<%= style if defined?(style) %>">
+   <td class="col-md-2"><%= child_product.id %></td>
+   <td class="col-md-2"><%= child_product.name %></td>
+   <td class="col-md-2"><%= parent_product.child_quantity(child_product) %></td>
+   <td class="col-md-2"><%= link_to 'Show', child_product %></td>
+   <td class="col-md-2">  <%= link_to "Remove",
+                            product_rel_path(ProductRel.find_by_parent_child(parent_product, child_product)),
+                            data: {confirm: "Are you sure you want to remove this source product?"},
+                            method: :delete, remote: true %>
+                          </td>
+   <td class="col-md-2"></td>
+</tr>
