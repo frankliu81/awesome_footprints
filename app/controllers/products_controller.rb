@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :lookup]
+  before_action :authenticate_user!, except: [:index, :show, :lookup, :autocomplete]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -28,6 +28,23 @@ class ProductsController < ApplicationController
     scanned_product = Product.where(barcode_type: barcode_type, barcode: barcode).first
     respond_to do |format|
       format.json { render json: scanned_product, serializer: ProductLookupSerializer }
+    end
+  end
+
+  def autocomplete_name
+    @products = Product.order(:name).where("name ILIKE ?", "%#{params[:term]}%")
+    respond_to do |format|
+      #byebug
+      format.html
+      format.json {
+        #render json: @products.map(&:name).to_json
+        # return both id and name from autocomplete as array of array
+        #render json: @products.map{|p| [p.id, p.name] }.to_json
+        render json: {
+          product_ids: @products.map(&:id),
+          product_names: @products.map(&:name)
+       }
+      }
     end
   end
 

@@ -4,11 +4,26 @@
       <%#= label_tag :parent_id, "Parent", html: {class: "col-md-2 control-label"} %>
       <%#= text_field_tag :parent_id %>
       <%= hidden_field_tag "parent_id", parent_product.id %>
-      <%= label_tag :child_id, "Source Product", html: {class: "col-md-2 control-label"} %>
-      <%= text_field_tag :child_id %>
-      <%= label_tag :child_quantity, "Source Quantity", html: {class: "col-md-2 control-label"} %>
-      <%= text_field_tag :child_quantity %>
-        <%= submit_tag "Add Source Product", 	data: {disable_with: "submitting..."}, class: "btn btn-primary" %>
+      <div class="form-group col-xs-3 col-md-3">
+        <%= label_tag :child_id, "Source Product Id", html: {class: "col-md-2 control-label"} %>
+        <%= text_field_tag :child_id, nil, placeholder: 'Enter product ID' %>
+      </div>
+
+      <div class="form-group col-xs-3 col-md-3">
+        <%= label_tag :child_product_name_search, "Source Product Name", html: {class: "col-md-2 control-label"} %>
+        <%= text_field_tag :child_product_name_search, nil, placeholder: 'Enter search term ...' %>
+      </div>
+
+      <div class="form-group col-xs-3 col-md-3">
+        <%= label_tag :child_quantity, "Source Quantity", html: {class: "col-md-2 control-label"} %>
+        <%= text_field_tag :child_quantity, 1 %>
+      </div>
+
+      <div class="form-group col-xs-3 col-md-3">
+        <%#= submit_tag "Add Source Product", 	data: {disable_with: "submitting..."}, class: "btn btn-primary" %>
+        <label id="source-product-submit-label" for="source-product-submit" class="btn"><i class="glyphicon glyphicon-plus"></i>Add</label>
+        <input id="source-product-submit" type="submit" value="Go" class="hidden" />
+      </div>
   </div>
 
 

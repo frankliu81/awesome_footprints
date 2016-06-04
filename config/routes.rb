@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
-  get "/products/lookup" => "products#lookup"
-  resources :products
-
+  #get "/products/lookup" => "products#lookup"
+  resources :products do
+     collection do
+       get 'autocomplete_name'
+       get 'lookup'
+     end
+   end
   # join table for self-referential products
   resources :product_rels
 
