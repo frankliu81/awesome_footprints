@@ -1,0 +1,2 @@
+module ProductRelsHelper
+end

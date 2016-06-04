@@ -54,6 +54,10 @@
 <%# byebug %>
 <h3>Source Products</h3>
 
+<div id="product-child-form">
+  <%= render "/products/child_form" %>
+</div>
+
 <table class="table table-medium">
   <thead>
     <tr>
@@ -72,9 +76,13 @@
            <td class="col-md-2"><%= child_product.id %></td>
            <td class="col-md-2"><%= child_product.name %></td>
            <td class="col-md-2"><%= @product.child_quantity(child_product) %></td>
-           <td class="col-md-2"><%= link_to 'Show', child_product %></th>
-           <td class="col-md-2"></th>
-           <td class="col-md-2"></th>
+           <td class="col-md-2"><%= link_to 'Show', child_product %></td>
+           <td class="col-md-2">  <%= link_to "Remove",
+                                    product_rel_path(ProductRel.find_by_parent_child(@product, child_product)),
+                                    data: {confirm: "Are you sure?"},
+                                    method: :delete, remote: true %>
+                                  </td>
+           <td class="col-md-2"></td>
         </tr>
     <% end %>
  </tbody>

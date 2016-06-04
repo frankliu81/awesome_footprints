@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   get "/products/lookup" => "products#lookup"
   resources :products
 
+  # join table for self-referential products
+  resources :product_rels
+
   devise_for :users
 
   get "/about" => "home#about"
