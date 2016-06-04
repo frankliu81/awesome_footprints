@@ -1,4 +1,10 @@
+<h2>Product</h2>
 <p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product Id:</strong>
+  <%= @product.id %>
+</p>
 
 <p>
   <strong>Name:</strong>
@@ -31,21 +37,49 @@
   <tbody>
     <% product_impact_line_items = @product.product_impact_line_items %>
     <% product_impact_line_items.all.each do |product_impact_line_item| %>
-      <% if product_impact_line_item.impact_line_item != "created_at" && product_impact_line_item.impact_line_item != "updated_at"  %>
         <tr>
            <td><%= product_impact_line_item.impact_line_item.name %></td>
            <% Category.all.each do |category| %>
-              <% if category != "created_at" && category != "updated_at"  %>
                <%# byebug %>
                <td class="col-md-2"> <%= product_impact_line_item.find_impact_entry(category).value %></td>
-              <% end %>
            <% end %>
         </tr>
-      <% end %>
+
     <% end %>
 
  </tbody>
 </table>
+
+<br>
+<%# byebug %>
+<h3>Source Products</h3>
+
+<table class="table table-medium">
+  <thead>
+    <tr>
+      <th class="col-md-2">Product Id</th>
+      <th class="col-md-2">Name</th>
+      <th class="col-md-2">Quantity</th>
+      <th class="col-md-2"></th>
+      <th class="col-md-2"></th>
+      <th class="col-md-2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @product.children.each do |child_product| %>
+        <tr>
+           <td class="col-md-2"><%= child_product.id %></td>
+           <td class="col-md-2"><%= child_product.name %></td>
+           <td class="col-md-2"><%= @product.child_quantity(child_product) %></td>
+           <td class="col-md-2"><%= link_to 'Show', child_product %></th>
+           <td class="col-md-2"></th>
+           <td class="col-md-2"></th>
+        </tr>
+    <% end %>
+ </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

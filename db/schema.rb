@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602003535) do
+ActiveRecord::Schema.define(version: 20160603154122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,12 +50,19 @@ ActiveRecord::Schema.define(version: 20160602003535) do
   add_index "product_impact_line_items", ["impact_line_item_id"], name: "index_product_impact_line_items_on_impact_line_item_id", using: :btree
   add_index "product_impact_line_items", ["product_id"], name: "index_product_impact_line_items_on_product_id", using: :btree
 
+  create_table "product_rels", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.integer  "child_quantity"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
-    t.integer  "parent_product_id"
     t.integer  "user_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "barcode"
     t.string   "barcode_type"
     t.string   "description"
