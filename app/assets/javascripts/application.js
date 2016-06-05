@@ -17,4 +17,5 @@
 //= require react_ujs
 //= require components
 //= require jquery-ui
+//= require underscore
 //= require_tree .

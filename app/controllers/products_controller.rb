@@ -39,11 +39,13 @@ class ProductsController < ApplicationController
       format.json {
         #render json: @products.map(&:name).to_json
         # return both id and name from autocomplete as array of array
-        #render json: @products.map{|p| [p.id, p.name] }.to_json
-        render json: {
-          product_ids: @products.map(&:id),
-          product_names: @products.map(&:name)
-       }
+        # render json:
+        # {
+        #   product_ids: @products.map(&:id),
+        #   product_names: @products.map(&:name)
+        # }
+        render json: @products.map{|p| {label: p.name, value: p.id} }.to_json
+
       }
     end
   end
