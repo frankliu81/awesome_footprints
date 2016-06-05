@@ -12,6 +12,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  devise_scope :user do
+    match '/sign-in' => "devise/sessions#new", :via => [:get], :as => :login
+  end
+
   get "/about" => "home#about"
 
   root to: "home#index"

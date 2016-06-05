@@ -22,6 +22,8 @@ class Product < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
+  mount_uploader :image, ImageUploader
+
   def find_product_impact_line_item(impact_line_item)
     product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
   end

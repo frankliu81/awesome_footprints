@@ -78,28 +78,68 @@ def create_impact_entries(product)
 end
 
 
-p1 = Product.new(name: "p1", user_id: u1.id, barcode_type: "UPC_A", barcode: "1")
+p1 = Product.new(name: "p1", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "1",
+                image: File.open(File.join(Rails.root, '/demo_images/p1.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p1)
 
-p2 = Product.new(name: "p2", user_id: u1.id, barcode_type: "UPC_A", barcode: "2")
+p2 = Product.new(name: "p2", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "2",
+                image: File.open(File.join(Rails.root, '/demo_images/p2.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p2)
 
-p3 = Product.new(name: "p3", user_id: u1.id, barcode_type: "UPC_A", barcode: "3")
+p3 = Product.new(name: "p3", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "3",
+                image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p3)
 
-p4 = Product.new(name: "p4", user_id: u1.id, barcode_type: "UPC_A", barcode: "4")
+p4 = Product.new(name: "p4", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "4",
+                image: File.open(File.join(Rails.root, '/demo_images/p4.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p4)
 
-p5 = Product.new(name: "p5", user_id: u1.id, barcode_type: "UPC_A", barcode: "5")
+p5 = Product.new(name: "p5", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "5",
+                image: File.open(File.join(Rails.root, '/demo_images/p5.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p5)
 
-p6 = Product.new(name: "p6", user_id: u1.id, barcode_type: "UPC_A", barcode: "6")
+p6 = Product.new(name: "p6", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "6",
+                image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p6)
 
-p7 = Product.new(name: "p7", user_id: u1.id, barcode_type: "UPC_A", barcode: "7")
+p7 = Product.new(name: "p7", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "7",
+                image: File.open(File.join(Rails.root, '/demo_images/p7.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p7)
 
-p8 = Product.new(name: "p8", user_id: u1.id, barcode_type: "UPC_A", barcode: "8")
+p8 = Product.new(name: "p8", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "8",
+                image: File.open(File.join(Rails.root, '/demo_images/p8.png')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(p8)
 
 ProductRel.create(parent_id: p1.id, child_id: p3.id, child_quantity: 1+rand(9).floor)
@@ -108,5 +148,10 @@ ProductRel.create(parent_id: p2.id, child_id: p6.id, child_quantity: 1+rand(9).f
 ProductRel.create(parent_id: p3.id, child_id: p7.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p3.id, child_id: p8.id, child_quantity: 1+rand(9).floor)
 
-product = Product.new(name: "Clif Bar", user_id: u1.id, barcode_type: "UPC_A", barcode: "722252212122")
+product = Product.new(name: "Clif Bar", user_id: u1.id,
+                description: Faker::Hipster.paragraph,
+                barcode_type: "UPC_A", barcode: "722252212122",
+                image: File.open(File.join(Rails.root, '/demo_images/Clif_Bar.jpeg')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "www.example.com/details")
 create_impact_entries(product)

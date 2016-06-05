@@ -7,6 +7,6 @@ class CreateProductRels < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    remove_column :products, :parent_product_id, :integer
+    
   end
 end

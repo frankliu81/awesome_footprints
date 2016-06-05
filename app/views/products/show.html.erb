@@ -13,6 +13,11 @@
 </p>
 
 <p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
   <strong>Barcode Type:</strong>
   <%= @product.barcode_type %>
 </p>
@@ -21,6 +26,21 @@
   <strong>Barcode:</strong>
   <%= @product.barcode %>
 </p>
+
+<% if @product.image.present? %>
+  <%= image_tag @product.image.url(:small), class: "product-image full-width" %>
+<% end %>
+
+<p>
+  <strong>Contact E-mail:</strong>
+  <%= @product.contact_email %>
+</p>
+
+<p>
+  <strong>Link to Details:</strong>
+  <%= @product.details_url %>
+</p>
+
 
 <table class="table table-bordered table-medium">
   <thead>

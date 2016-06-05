@@ -60,15 +60,20 @@ ActiveRecord::Schema.define(version: 20160603154122) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
-    t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "barcode"
+    t.text     "description"
+    t.string   "image"
     t.string   "barcode_type"
-    t.string   "description"
+    t.string   "barcode"
+    t.string   "contact_email"
+    t.string   "details_url"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "products", ["barcode"], name: "index_products_on_barcode", unique: true, using: :btree
+  add_index "products", ["description"], name: "index_products_on_description", using: :btree
+  add_index "products", ["name"], name: "index_products_on_name", unique: true, using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
