@@ -83,7 +83,7 @@ p1 = Product.new(name: "p1", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "1",
                 image: File.open(File.join(Rails.root, '/demo_images/p1.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p1)
 
 p2 = Product.new(name: "p2", user_id: u1.id,
@@ -91,15 +91,15 @@ p2 = Product.new(name: "p2", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "2",
                 image: File.open(File.join(Rails.root, '/demo_images/p2.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p2)
 
 p3 = Product.new(name: "p3", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "3",
-                image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
+                #image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p3)
 
 p4 = Product.new(name: "p4", user_id: u1.id,
@@ -107,7 +107,7 @@ p4 = Product.new(name: "p4", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "4",
                 image: File.open(File.join(Rails.root, '/demo_images/p4.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p4)
 
 p5 = Product.new(name: "p5", user_id: u1.id,
@@ -115,15 +115,15 @@ p5 = Product.new(name: "p5", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "5",
                 image: File.open(File.join(Rails.root, '/demo_images/p5.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p5)
 
 p6 = Product.new(name: "p6", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "6",
-                image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
+                #image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p6)
 
 p7 = Product.new(name: "p7", user_id: u1.id,
@@ -131,7 +131,7 @@ p7 = Product.new(name: "p7", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "7",
                 image: File.open(File.join(Rails.root, '/demo_images/p7.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p7)
 
 p8 = Product.new(name: "p8", user_id: u1.id,
@@ -139,7 +139,7 @@ p8 = Product.new(name: "p8", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "8",
                 image: File.open(File.join(Rails.root, '/demo_images/p8.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(p8)
 
 ProductRel.create(parent_id: p1.id, child_id: p3.id, child_quantity: 1+rand(9).floor)
@@ -153,5 +153,16 @@ product = Product.new(name: "Clif Bar", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "722252212122",
                 image: File.open(File.join(Rails.root, '/demo_images/Clif_Bar.jpeg')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "www.example.com/details")
+                details_url: "http://www.example.com")
 create_impact_entries(product)
+
+for i in 9..30 do
+
+  p = Product.new(name: Faker::Commerce.product_name, user_id: u1.id,
+                  description: Faker::Hipster.paragraph,
+                  barcode_type: "UPC_A", barcode: i.to_s,
+                  contact_email: "codecorefrank@gmail.com",
+                  details_url: "http://www.example.com")
+  create_impact_entries(p)
+
+end

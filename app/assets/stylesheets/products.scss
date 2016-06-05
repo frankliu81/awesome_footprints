@@ -2,11 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#source-product-submit-label {
-  margin-top: 15px;
+// product index page
+.products > div {
+  height: 200px;
 }
 
+.product-placeholder-image {
+  width: 160px;
+  height: 160px;
+  border:1px solid #021a40;
+  display: flex;
+  justify-content:center;
+  align-content:center;
+  flex-direction:column;
+  text-align: center;
+  line-height: 2em;
+  font-size: 2em;
+}
+
+a.product-placeholder-link:hover{
+  color: black;
+  text-decoration:none;
+}
+
+// product show page
 .product-image {
   border:1px solid #021a40;
+}
 
+#impacts-table {
+  margin-top: 30px;
+}
+
+#source-product-submit-label {
+  margin-top: 15px;
 }

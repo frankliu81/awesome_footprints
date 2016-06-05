@@ -1,48 +1,55 @@
-<h2>Product</h2>
-<!-- <p id="notice"><%#= flash[:notice] %></p>
-<p id="alert"><%#= flash[:alert] %></p> -->
+<div class="row">
+  <!-- <p id="notice"><%#= flash[:notice] %></p>
+  <p id="alert"><%#= flash[:alert] %></p> -->
 
-<p>
-  <strong>Product Id:</strong>
-  <%= @product.id %>
-</p>
+  <div class="col-sm-8">
+    <div class="h2">Product</div>
+    <p>
+      <strong>Product Id:</strong>
+      <%= @product.id %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @product.name %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @product.description %>
+    </p>
 
-<p>
-  <strong>Barcode Type:</strong>
-  <%= @product.barcode_type %>
-</p>
+    <p>
+      <strong>Barcode Type:</strong>
+      <%= @product.barcode_type %>
+    </p>
 
-<p>
-  <strong>Barcode:</strong>
-  <%= @product.barcode %>
-</p>
+    <p>
+      <strong>Barcode:</strong>
+      <%= @product.barcode %>
+    </p>
 
-<% if @product.image.present? %>
-  <%= image_tag @product.image.url(:small), class: "product-image full-width" %>
-<% end %>
+    <p>
+      <strong>Contact E-mail:</strong>
+      <%= @product.contact_email %>
+    </p>
 
-<p>
-  <strong>Contact E-mail:</strong>
-  <%= @product.contact_email %>
-</p>
+    <p>
+      <strong>Link to Details:</strong>
+      <%= link_to @product.details_url, @product.details_url %>
+    </p>
+  </div>
 
-<p>
-  <strong>Link to Details:</strong>
-  <%= @product.details_url %>
-</p>
+  <div class="col-sm-4">
+    <% if @product.image.present? %>
+      <%= image_tag @product.image.url(:small), class: "product-image" %>
+    <% end %>
+  </div>
+
+</div>
 
 
-<table class="table table-bordered table-medium">
+<table id="impacts-table" class="table table-bordered table-medium">
   <thead>
     <tr>
       <th class="col-md-2"></th>

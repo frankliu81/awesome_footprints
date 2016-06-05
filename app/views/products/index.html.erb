@@ -1,31 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Products</h1>
-<div class="fluid-container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>User</th>
-        <!-- <th>Parent product</th>
-        <th>User</th> -->
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<h1>Products Listing</h1>
+<div class="row products">
 
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td><%= product.name %></td>          
-          <td><%= product.user.full_name %></td>
-          <td><%= link_to 'Show', product %></td>
-          <td><%= link_to 'Edit', edit_product_path(product) %></td>
-          <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+  <% @products.each do |product| %>
+    <div class ="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+    <% if product.image.present? %>
+      <%= link_to image_tag(product.image.url(:thumb), class: "product-image"),
+          product_path(product) %>
+      <h4><%= link_to product.name, product_path(product) %></h4>
+    <% else %>
+      <%#= link_to '<i class="fa fa-camera-retro fa-5x" aria-hidden="true"></i>'.html_safe,
+          product_path(product) %>
+      <%= link_to(product, class: "product-placeholder-link") do %>
+        <div class="product-placeholder-image">
+            <%= product.name %>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-</div>
-<br>
+      <h4><%= link_to product.name, product_path(product) %></h4>
+    <% end %>
+    </div>
+  <% end %>
 
-<%= link_to 'New Product', new_product_path %>
+</div>
+
+
+<%#= link_to 'New Product', new_product_path %>
