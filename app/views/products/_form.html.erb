@@ -4,7 +4,18 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :description %>
-    <%= f.input :image %>
+    <%#= f.input :image %>
+
+    <div class="control-group">
+      <div class="attach-set">
+        <%= f.input :image, input_html: { class:'hidden-input' }, label: 'Upload Image' %>
+        <div class="input-append">
+          <input id="file-display" class="input-large uneditable-input" type="text">
+          <a id="upload-btn" class="btn btn-primary"><i class="icon-upload-alt"></i> Browse</a>
+        </div>
+      </div> <!-- /attach-set -->
+    </div> <!-- /control-group -->
+
     <%= f.input :barcode_type, label: "Barcode Type" %>
     <%= f.input :barcode %>
     <%= f.input :address %>

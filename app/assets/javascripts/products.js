@@ -33,7 +33,7 @@ $(document).ready(function() {
       focus: function( event, ui ) {
         // if we don't override focus, then while we are selecting
         // #child_product_name_search will temporarily display
-        // ui.item.value (ie. product id of 9 when we want product name of 'Clif Bar') 
+        // ui.item.value (ie. product id of 9 when we want product name of 'Clif Bar')
         $( "#child_product_name_search" ).val( ui.item.label );
         return false;
       },
@@ -56,4 +56,4 @@ $(document).ready(function() {
         $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
       }
     });
-})
+});

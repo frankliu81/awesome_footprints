@@ -89,7 +89,7 @@
 </div>
 
 <section id="source-products-section" class="container content-section">
-  <h3 id="source-product-header">Source Products</h3>
+  <h3 id="source-products-header">Source Products</h3>
 
   <div id="child-product-form">
     <%= render "/products/child_product_form", parent_product: @product %>
@@ -136,7 +136,7 @@
           "lng": <%= @product.longitude %>,
           "picture": {
             //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-            "url": "<%= image_path('red_MarkerP.png') %>",
+            "url": "<%= asset_path('red_MarkerP.png') %>",
             "width":  20,
             "height": 32
           },

@@ -16,8 +16,8 @@
   align-content:center;
   flex-direction:column;
   text-align: center;
-  line-height: 2em;
-  font-size: 2em;
+  line-height: 1.5em;
+  font-size: 1.5em;
 }
 
 a.product-placeholder-link:hover{
@@ -57,10 +57,17 @@ a.product-placeholder-link:hover{
 }
 
 
-#source-product-header {
-  margin-top: 30px;
+#source-products-header {
+  /* prevent the source products heading from getting cut off*/
+  padding-top: -50px;
+  margin-top: 50px;
 }
 
 #source-product-submit-label {
   margin-top: 15px;
+}
+
+// Product new/edit (ie. _form)
+input[type="file"].hidden-input {
+    display: none;
 }
