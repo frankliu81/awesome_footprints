@@ -27,6 +27,10 @@ class Product < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode
 
+  def self.search(search_term)
+    where(["name ILIKE :term OR description ILIKE :term", {term: "%#{search_term}%"} ])
+  end
+
   def find_product_impact_line_item(impact_line_item)
     product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
   end

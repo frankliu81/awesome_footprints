@@ -1,12 +1,12 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :lookup, :autocomplete]
+  before_action :authenticate_user!, except: [:index, :show, :lookup, :autocomplete_name, :search]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
-
+    #@products = Product.all
+    @products = Product.order('created_at ASC').page(params[:page]).per(12)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }
@@ -29,6 +29,11 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.json { render json: scanned_product, serializer: ProductLookupSerializer }
     end
+  end
+
+  def search
+    @products = Product.search(params[:search]).page(params[:page]).per(12)
+    render :index
   end
 
   def autocomplete_name
@@ -74,7 +79,7 @@ class ProductsController < ApplicationController
       respond_to do |format|
         if @product.save
 
-          ImpactLineItem.all.each do |impact_line_item|            
+          ImpactLineItem.all.each do |impact_line_item|
               product_impact_line_item = @product.product_impact_line_items.create(product_id: @product.id, impact_line_item_id: impact_line_item.id)
 
               Category.all.each do |category|

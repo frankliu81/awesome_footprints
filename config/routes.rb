@@ -5,6 +5,7 @@ Rails.application.routes.draw do
      collection do
        get 'autocomplete_name'
        get 'lookup'
+       get 'search'
      end
    end
   # join table for self-referential products

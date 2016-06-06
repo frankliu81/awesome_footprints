@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Products Listing</h1>
-<div class="row products">
 
+<%= paginate(@products) %>
+<div class="pagination_info">
+  <%= page_entries_info @products %>
+</div>
+
+<div class="row products">
   <% @products.each do |product| %>
     <div class ="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 
@@ -22,8 +27,9 @@
     <% end %>
     </div>
   <% end %>
-
 </div>
+
+<%= paginate(@products) %>
 
 
 <%#= link_to 'New Product', new_product_path %>
