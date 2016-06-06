@@ -48,33 +48,36 @@
 
 </div>
 
+<div style = "overflow-x:auto">
+  <table id="impacts-table" class="table table-bordered table-medium">
+    <thead>
+      <tr>
+        <th class="col-sm-2 headcol"></th>
+        <% Category.all.each do |category| %>
+            <th class="col-sm-2"><%= category.name %></th>
+        <% end %>
+      </tr>
 
-<table id="impacts-table" class="table table-bordered table-medium">
-  <thead>
-    <tr>
-      <th class="col-sm-2"></th>
-      <% Category.all.each do |category| %>
-          <th class="col-sm-2"><%= category.name %></th>
+    </thead>
+
+    <tbody>
+      <% product_impact_line_items = @product.product_impact_line_items %>
+      <%# product_impact_line_items.all.each do |product_impact_line_item| %>
+      <%# specify relationship to be included in the result sult %>
+      <% product_impact_line_items.includes(:impact_line_item, :impact_entries).each do |product_impact_line_item| %>
+          <tr>
+            <th class="headcol" scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
+             <% Category.all.each do |category| %>
+                 <%# byebug %>
+                <td class="col-sm-2"> <%= product_impact_line_item.find_impact_entry(category).value %></td>
+             <% end %>
+          </tr>
+
       <% end %>
-    </tr>
 
-  </thead>
-
-  <tbody>
-    <% product_impact_line_items = @product.product_impact_line_items %>
-    <% product_impact_line_items.all.each do |product_impact_line_item| %>
-        <tr>
-          <th scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
-           <% Category.all.each do |category| %>
-               <%# byebug %>
-               <td class="col-sm-2"> <%#= product_impact_line_item.find_impact_entry(category).value %></td>
-           <% end %>
-        </tr>
-
-    <% end %>
-
- </tbody>
-</table>
+   </tbody>
+  </table>
+</div>
 
 <div class="row">
   <div class="col-sm-6">
@@ -99,14 +102,15 @@
 
   <table class="table table-medium" id="child-products">
     <thead>
-      <tr>
-        <th class="col-sm-2">Product Id</th>
-        <th class="col-md-2">Name</th>
-        <th class="col-sm-2">Quantity</th>
-        <th class="col-sm-2"></th>
-        <th class="col-sm-2"></th>
-        <th class="col-sm-2"></th>
-      </tr>
+        <tr>
+          <th class="col-sm-2">Product Id</th>
+          <th class="col-sm-2">Name</th>
+          <th class="col-sm-2">Quantity</th>
+          <th class="col-sm-2"></th>
+          <th class="col-sm-2"></th>
+          <th class="col-sm-2"></th>
+        </tr>
+      </div>
     </thead>
 
     <tbody>
@@ -119,6 +123,7 @@
   </table>
 
   <h3>Product and Source Products Locations</h3>
+  <%# byebug %>
   <% if @product.address.present? || @product.child_product_addresses_present? %>
   <div>
     <div id="map" style='height: 600px;'></div>
@@ -129,23 +134,28 @@
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: { scrollwheel: false, zoomControl: true }, internal: {id: 'map'}}, function(){
 
-
-      var markers1 = handler.addMarkers([
-        {
-          "lat": <%= @product.latitude %>,
-          "lng": <%= @product.longitude %>,
-          "picture": {
-            //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-            "url": "<%= asset_path('red_MarkerP.png') %>",
-            "width":  20,
-            "height": 32
-          },
-          "infowindow": "<%= @product.name %>"
-        }
-      ]);
-      var markers2 = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
-      var markers = markers1.concat(markers2);
-
+      var marker_product = [];
+      var markers_source_products = [];
+      <% if @product.address.present? %>
+        marker_product = handler.addMarkers([
+          {
+            "lat": <%= @product.latitude %>,
+            "lng": <%= @product.longitude %>,
+            "picture": {
+              //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+              "url": "<%= asset_path('red_MarkerP.png') %>",
+              "width":  20,
+              "height": 32
+            },
+            "infowindow": "<%= @product.name %>"
+          }
+        ]);
+      <% end %>
+      <% if @product.child_product_addresses_present? %>
+        markers_source_products = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
+      <% end %>
+      var markers = marker_product.concat(markers_source_products);
+      //debugger;
       updateMarkers(handler, markers);
 
       //// move to updateMarkers in map.js

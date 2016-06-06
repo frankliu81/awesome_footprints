@@ -16,67 +16,60 @@ c3 = Category.create(name: "Renewable Percentage (%)")
 c4 = Category.create(name: "Water Use (L)")
 c5 = Category.create(name: "Waste (kg)")
 
-ili1 = ImpactLineItem.create(name: "Total Impact")
-ili2 = ImpactLineItem.create(name: "Source")
-ili3 = ImpactLineItem.create(name: "Manufacturing")
-ili4 = ImpactLineItem.create(name: "Distribution")
-ili5 = ImpactLineItem.create(name: "Use Phase")
-ili6 = ImpactLineItem.create(name: "End of Life")
-
-#total_impact_per_category = Array.new(Category.count, 0)
-# total_impact_per_category = Hash.new()
-#
-# def create_impact_entries(product)
-#   ActiveRecord::Base.transaction do
-#     if product.save
-#       ImpactLineItem.all.each do |impact_line_item|
-#         product_impact_line_item = product.product_impact_line_items.create(product_id: product.id, impact_line_item_id: impact_line_item.id)
-#
-#         Category.all.each do |category|
-#           # byebug
-#           # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
-#           if impact_line_item.name != "Total Impact"
-#             ie = ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
-#                                 category_id: category.id,
-#                                 value: 1 + rand(10))
-#             total_impact_per_category
-#           end
-#         end
-#
-#         # sum the Total Impact
-#         Category.all.each do |category|
-#           if impact_line_item.name == "Total Impact"
-#             ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
-#                                 category_id: category.id,
-#                                 value: total_impact_of_category)
-#           end
-#         end
-#       end
-#     end
-#   end
-# end
+ili1 = ImpactLineItem.create(name: "Source")
+ili2 = ImpactLineItem.create(name: "Manufacturing")
+ili3 = ImpactLineItem.create(name: "Distribution")
+ili4 = ImpactLineItem.create(name: "Use Phase")
+ili5 = ImpactLineItem.create(name: "End of Life")
+ili6 = ImpactLineItem.create(name: "Total Impact")
 
 
 def create_impact_entries(product)
   ActiveRecord::Base.transaction do
     if product.save
+      total_impact = Hash.new(0)
       ImpactLineItem.all.each do |impact_line_item|
-        product_impact_line_item = product.product_impact_line_items.create(product_id: product.id, impact_line_item_id: impact_line_item.id)
+        #byebug
+        if impact_line_item.name != "Total Impact" # calculate the Total Impact after other impact_entries have been created
+          product_impact_line_item = product.product_impact_line_items.create(product_id: product.id, impact_line_item_id: impact_line_item.id)
 
-        Category.all.each do |category|
-          # byebug
-          # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
-          ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
-                              category_id: category.id,
-                              value: 1 + rand(9))
+          Category.all.each do |category|
+            # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
+              value = 1 + rand(9)
+              ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
+                                  category_id: category.id,
+                                  value: value)
+              total_impact[category.name] = total_impact[category.name] + value;
+          end
         end
-
       end
+
+      # do the average for renewable percentage
+      total_impact["Renewable Percentage (%)"] = total_impact["Renewable Percentage (%)"] / (ImpactLineItem.count - 1).to_f
+
+      # seed total impact
+      #byebug
+      product_impact_line_item = product.product_impact_line_items.create(product_id: product.id, impact_line_item_id: ImpactLineItem.total_impact.id)
+      Category.all.each do |category|
+        ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
+                            category_id: category.id,
+                            value: total_impact[category.name])
+      end
+
     end
   end
   product
 end
 
+clif_bar  = Product.new(name: "Clif Bar", user_id: u1.id,
+                description: "Mix of carbohydrates, protein, and fiber makes this a moderate glycemic index food that gives you sustained energy.
+                Made with 70-percent organic ingredients.  Free of trans fats, hydrogenated oils, and high fructose corn syrup",
+                barcode_type: "UPC_A", barcode: "722252212122",
+                image: File.open(File.join(Rails.root, '/demo_images/Clif_Bar.jpeg')),
+                contact_email: "codecorefrank@gmail.com",
+                details_url: "http://www.example.com",
+                address: "142 W Hastings St, Vancouver, BC, Canada")
+create_impact_entries(clif_bar)
 
 p1 = Product.new(name: "p1", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
@@ -146,27 +139,19 @@ p8 = Product.new(name: "p8", user_id: u1.id,
                 address: "4-1-2, Hiranomachi, Chuo-ku, Osaka, Japan")
 create_impact_entries(p8)
 
+ProductRel.create(parent_id: clif_bar.id, child_id: p7.id, child_quantity: 1+rand(9).floor)
+ProductRel.create(parent_id: clif_bar.id, child_id: p8.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p1.id, child_id: p3.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p2.id, child_id: p3.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p2.id, child_id: p6.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p3.id, child_id: p7.id, child_quantity: 1+rand(9).floor)
 ProductRel.create(parent_id: p3.id, child_id: p8.id, child_quantity: 1+rand(9).floor)
 
-product = Product.new(name: "Clif Bar", user_id: u1.id,
-                description: Faker::Hipster.paragraph,
-                barcode_type: "UPC_A", barcode: "722252212122",
-                image: File.open(File.join(Rails.root, '/demo_images/Clif_Bar.jpeg')),
-                contact_email: "codecorefrank@gmail.com",
-                details_url: "http://www.example.com")
-create_impact_entries(product)
-
 for i in 9..30 do
-
   p = Product.new(name: Faker::Commerce.product_name, user_id: u1.id,
                   description: Faker::Hipster.paragraph,
                   barcode_type: "UPC_A", barcode: i.to_s,
                   contact_email: "codecorefrank@gmail.com",
                   details_url: "http://www.example.com")
   create_impact_entries(p)
-
 end
