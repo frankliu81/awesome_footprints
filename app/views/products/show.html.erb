@@ -3,17 +3,12 @@
   <p id="alert"><%#= flash[:alert] %></p> -->
 
   <div class="col-sm-8">
-    <div class="h2">Product</div>
+    <div class="h2"><%= @product.name %></div>
+    <hr>
     <p>
       <strong>Product Id:</strong>
       <%= @product.id %>
     </p>
-
-    <p>
-      <strong>Name:</strong>
-      <%= @product.name %>
-    </p>
-
     <p>
       <strong>Description:</strong>
       <%= @product.description %>
