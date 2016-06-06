@@ -35,7 +35,7 @@ class ProductRelsController < ApplicationController
     respond_to do |format|
       flash.now[:notice] = "Source product removed"
       format.html { redirect_to product_path(parent_product) }
-      format.js { render :destroy, locals: {child_product: child_product} }
+      format.js { render :destroy, locals: {parent_product: parent_product, child_product: child_product} }
     end
   end
 

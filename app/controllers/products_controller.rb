@@ -74,20 +74,17 @@ class ProductsController < ApplicationController
       respond_to do |format|
         if @product.save
 
-          ImpactLineItem.all.each do |impact_line_item|
-            if impact_line_item != "created_at" && impact_line_item != "updated_at"
+          ImpactLineItem.all.each do |impact_line_item|            
               product_impact_line_item = @product.product_impact_line_items.create(product_id: @product.id, impact_line_item_id: impact_line_item.id)
 
               Category.all.each do |category|
-                if category != "created_at" && category != "updated_at"
-                  # byebug
-                  # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
-                  ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
-                                      category_id: category.id,
-                                      value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
-                end
+                # byebug
+                # in form.html.erb, impact_entry has the following HTML impact_entry[<%=impact_line_item.id%>][<%=category.id%>]
+                ImpactEntry.create( product_impact_line_item_id: product_impact_line_item.id,
+                                    category_id: category.id,
+                                    value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
               end
-            end
+
           end
 
           format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -110,15 +107,11 @@ class ProductsController < ApplicationController
         if @product.update(product_params)
 
           ImpactLineItem.all.each do |impact_line_item|
-            if impact_line_item != "created_at" && impact_line_item != "updated_at"
-              product_impact_line_item = @product.product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
+            product_impact_line_item = @product.product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
 
-              Category.all.each do |category|
-                if category != "created_at" && category != "updated_at"
-                  impact_entry = product_impact_line_item.find_impact_entry(category)
-                  impact_entry.update( value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
-                end
-              end
+            Category.all.each do |category|
+                impact_entry = product_impact_line_item.find_impact_entry(category)
+                impact_entry.update( value: params[:impact_entry][impact_line_item.id.to_s][category.id.to_s])
             end
           end
 

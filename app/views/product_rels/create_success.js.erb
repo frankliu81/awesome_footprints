@@ -1,3 +1,22 @@
 $("#notice").html("<%= flash[:notice] %>");
 $("#child-products").prepend("<%= j render partial: '/products/child_product', locals: {parent_product: parent_product, child_product: child_product, style: 'display: none'} %>");
 $("#<%= dom_id(child_product) %>").fadeIn(500);
+(function() {
+  var markers1 = handler.addMarkers([
+    {
+      "lat": <%= parent_product.latitude %>,
+      "lng": <%= parent_product.longitude %>,
+      "picture": {
+        //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+        "url": "<%= image_path('red_MarkerP.png') %>",
+        "width":  20,
+        "height": 32
+      },
+      "infowindow": "<%= parent_product.name %>"
+    }
+  ]);
+  var markers2 = handler.addMarkers(<%= raw products_json(parent_product.children_with_address).to_json %>);
+  var markers = markers1.concat(markers2);
+
+  updateMarkers(handler, markers);
+})();

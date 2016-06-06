@@ -31,6 +31,15 @@ class Product < ActiveRecord::Base
     product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
   end
 
+  # def impact_entries
+  #   ImpactEntry.find(:all,
+  #              :joins=>" JOIN stores ON Categories.manager_id = managers.id
+  #                        JOIN regions ON stores.region_id = regions.id
+  #                        JOIN readings ON readings.region_number = regions.number"
+  #              :conditions=>"manager.name = 'John Smith' AND regions.number = '1234567'"
+  #              :limit=>100)
+  # end
+
   def child_quantity(child)
     child_product_rels.find_by_child_id(child).child_quantity
   end

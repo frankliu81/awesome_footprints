@@ -2,3 +2,22 @@ $("#notice").html("<%= flash[:notice] %>");
 $("#<%= dom_id(child_product) %>").fadeOut(500, function(){
   $(this).remove();
 });
+(function() {
+  var markers1 = handler.addMarkers([
+    {
+      "lat": <%= parent_product.latitude %>,
+      "lng": <%= parent_product.longitude %>,
+      "picture": {
+        //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+        "url": "<%= image_path('red_MarkerP.png') %>",
+        "width":  20,
+        "height": 32
+      },
+      "infowindow": "<%= parent_product.name %>"
+    }
+  ]);
+  var markers2 = handler.addMarkers(<%= raw products_json(parent_product.children_with_address).to_json %>);
+  var markers = markers1.concat(markers2);
+
+  updateMarkers(handler, markers);
+})();

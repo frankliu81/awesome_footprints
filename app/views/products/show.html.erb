@@ -59,9 +59,7 @@
     <tr>
       <th class="col-md-2"></th>
       <% Category.all.each do |category| %>
-        <% if category != "created_at" && category != "updated_at"  %>
           <th class="col-md-2"><%= category.name %></th>
-        <% end %>
       <% end %>
     </tr>
 
@@ -74,7 +72,7 @@
           <th scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
            <% Category.all.each do |category| %>
                <%# byebug %>
-               <td class="col-md-2"> <%= product_impact_line_item.find_impact_entry(category).value %></td>
+               <td class="col-md-2"> <%#= product_impact_line_item.find_impact_entry(category).value %></td>
            <% end %>
         </tr>
 
@@ -88,7 +86,7 @@
 
 <br>
 <%# byebug %>
-<h3>Source Products</h3>
+<h3 id="source-product-header">Source Products</h3>
 
 <div id="child-product-form">
   <%= render "/products/child_product_form", parent_product: @product %>
@@ -123,19 +121,38 @@
   <div id="map" style='height: 600px;'></div>
 </div>
 
+<%# byebug %>
 <script type="text/javascript">
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: { scrollwheel: false, zoomControl: true }, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
 
-    handler.bounds.extendWith(markers);
-    // set the zoom differently for a single marker
-    if (markers.length === 1) {
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(17);
-    } else {
-      handler.fitMapToBounds();
-    }
+
+    var markers1 = handler.addMarkers([
+      {
+        "lat": <%= @product.latitude %>,
+        "lng": <%= @product.longitude %>,
+        "picture": {
+          //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+          "url": "<%= image_path('red_MarkerP.png') %>",
+          "width":  20,
+          "height": 32
+        },
+        "infowindow": "<%= @product.name %>"
+      }
+    ]);
+    var markers2 = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
+    var markers = markers1.concat(markers2);
+
+    updateMarkers(handler, markers);
+
+    // handler.bounds.extendWith(markers);
+    // // set the zoom differently for a single marker
+    // if (markers.length === 1) {
+    //   handler.fitMapToBounds();
+    //   handler.getMap().setZoom(17);
+    // } else {
+    //   handler.fitMapToBounds();
+    // }
 
   });
 </script>

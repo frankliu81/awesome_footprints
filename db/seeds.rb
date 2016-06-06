@@ -99,7 +99,8 @@ p3 = Product.new(name: "p3", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "3",
                 image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "http://www.example.com")
+                details_url: "http://www.example.com",
+                address: "142 W Hastings St, Vancouver, BC, Canada")
 create_impact_entries(p3)
 
 p4 = Product.new(name: "p4", user_id: u1.id,
@@ -123,7 +124,8 @@ p6 = Product.new(name: "p6", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "6",
                 image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "http://www.example.com")
+                details_url: "http://www.example.com",
+                address: "6138 Bedrock Ct, North Las Vegas, Nevada, USA")
 create_impact_entries(p6)
 
 p7 = Product.new(name: "p7", user_id: u1.id,
@@ -131,7 +133,8 @@ p7 = Product.new(name: "p7", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "7",
                 image: File.open(File.join(Rails.root, '/demo_images/p7.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "http://www.example.com")
+                details_url: "http://www.example.com",
+                address: "No. 7, Section 5, Xinyi Rd, Xinyi District, Taipei City, Taiwan ")
 create_impact_entries(p7)
 
 p8 = Product.new(name: "p8", user_id: u1.id,
@@ -139,7 +142,8 @@ p8 = Product.new(name: "p8", user_id: u1.id,
                 barcode_type: "UPC_A", barcode: "8",
                 image: File.open(File.join(Rails.root, '/demo_images/p8.png')),
                 contact_email: "codecorefrank@gmail.com",
-                details_url: "http://www.example.com")
+                details_url: "http://www.example.com",
+                address: "4-1-2, Hiranomachi, Chuo-ku, Osaka, Japan")
 create_impact_entries(p8)
 
 ProductRel.create(parent_id: p1.id, child_id: p3.id, child_quantity: 1+rand(9).floor)
