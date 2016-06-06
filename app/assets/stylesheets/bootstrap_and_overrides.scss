@@ -1,5 +1,11 @@
 // customize the primary color to codecore red
 $brand-primary: #009900;
 
+//@import "app/_variables";
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+//@import "app/_greyscale";

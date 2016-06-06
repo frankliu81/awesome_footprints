@@ -57,9 +57,9 @@
 <table id="impacts-table" class="table table-bordered table-medium">
   <thead>
     <tr>
-      <th class="col-md-2"></th>
+      <th class="col-sm-2"></th>
       <% Category.all.each do |category| %>
-          <th class="col-md-2"><%= category.name %></th>
+          <th class="col-sm-2"><%= category.name %></th>
       <% end %>
     </tr>
 
@@ -72,7 +72,7 @@
           <th scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
            <% Category.all.each do |category| %>
                <%# byebug %>
-               <td class="col-md-2"> <%#= product_impact_line_item.find_impact_entry(category).value %></td>
+               <td class="col-sm-2"> <%#= product_impact_line_item.find_impact_entry(category).value %></td>
            <% end %>
         </tr>
 
@@ -81,81 +81,91 @@
  </tbody>
 </table>
 
-<%= link_to 'Edit Product', edit_product_path(@product), class: "btn btn-primary" %>
-<%= link_to 'Back', products_path, class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-sm-6">
+    <%= link_to 'Edit Product', edit_product_path(@product), class: "btn btn-primary" %>
+    <%= link_to 'Back', products_path, class: "btn btn-primary" %>
+  </div>
 
-<br>
-<%# byebug %>
-<h3 id="source-product-header">Source Products</h3>
-
-<div id="child-product-form">
-  <%= render "/products/child_product_form", parent_product: @product %>
+  <div class="col-sm-6">
+    <a href="#source-products-section" class="btn btn-circle page-scroll pulse">
+      <i class="fa fa-angle-double-down"></i> </a>
+  </div>
 </div>
 
-<hr>
+<section id="source-products-section" class="container content-section">
+  <h3 id="source-product-header">Source Products</h3>
 
-<table class="table table-medium" id="child-products">
-  <thead>
-    <tr>
-      <th class="col-md-2">Product Id</th>
-      <th class="col-md-2">Name</th>
-      <th class="col-md-2">Quantity</th>
-      <th class="col-md-2"></th>
-      <th class="col-md-2"></th>
-      <th class="col-md-2"></th>
-    </tr>
-  </thead>
+  <div id="child-product-form">
+    <%= render "/products/child_product_form", parent_product: @product %>
+  </div>
 
-  <tbody>
-    <div>
-      <% @product.children.each do |child_product| %>
-        <%= render partial: "/products/child_product", locals: {parent_product: @product, child_product: child_product} %>
-      <% end %>
-    </div>
- </tbody>
-</table>
+  <hr>
 
-<h3>Product and Source Products Locations</h3>
-<% if @product.address.present? || @product.child_product_addresses_present? %>
-<div>
-  <div id="map" style='height: 600px;'></div>
-</div>
+  <table class="table table-medium" id="child-products">
+    <thead>
+      <tr>
+        <th class="col-sm-2">Product Id</th>
+        <th class="col-md-2">Name</th>
+        <th class="col-sm-2">Quantity</th>
+        <th class="col-sm-2"></th>
+        <th class="col-sm-2"></th>
+        <th class="col-sm-2"></th>
+      </tr>
+    </thead>
 
-<%# byebug %>
-<script type="text/javascript">
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: { scrollwheel: false, zoomControl: true }, internal: {id: 'map'}}, function(){
+    <tbody>
+      <div>
+        <% @product.children.each do |child_product| %>
+          <%= render partial: "/products/child_product", locals: {parent_product: @product, child_product: child_product} %>
+        <% end %>
+      </div>
+   </tbody>
+  </table>
+
+  <h3>Product and Source Products Locations</h3>
+  <% if @product.address.present? || @product.child_product_addresses_present? %>
+  <div>
+    <div id="map" style='height: 600px;'></div>
+  </div>
+
+  <%# byebug %>
+  <script type="text/javascript">
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: { scrollwheel: false, zoomControl: true }, internal: {id: 'map'}}, function(){
 
 
-    var markers1 = handler.addMarkers([
-      {
-        "lat": <%= @product.latitude %>,
-        "lng": <%= @product.longitude %>,
-        "picture": {
-          //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-          "url": "<%= image_path('red_MarkerP.png') %>",
-          "width":  20,
-          "height": 32
-        },
-        "infowindow": "<%= @product.name %>"
-      }
-    ]);
-    var markers2 = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
-    var markers = markers1.concat(markers2);
+      var markers1 = handler.addMarkers([
+        {
+          "lat": <%= @product.latitude %>,
+          "lng": <%= @product.longitude %>,
+          "picture": {
+            //"url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+            "url": "<%= image_path('red_MarkerP.png') %>",
+            "width":  20,
+            "height": 32
+          },
+          "infowindow": "<%= @product.name %>"
+        }
+      ]);
+      var markers2 = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
+      var markers = markers1.concat(markers2);
 
-    updateMarkers(handler, markers);
+      updateMarkers(handler, markers);
 
-    // handler.bounds.extendWith(markers);
-    // // set the zoom differently for a single marker
-    // if (markers.length === 1) {
-    //   handler.fitMapToBounds();
-    //   handler.getMap().setZoom(17);
-    // } else {
-    //   handler.fitMapToBounds();
-    // }
+      //// move to updateMarkers in map.js
+      // handler.bounds.extendWith(markers);
+      // // set the zoom differently for a single marker
+      // if (markers.length === 1) {
+      //   handler.fitMapToBounds();
+      //   handler.getMap().setZoom(17);
+      // } else {
+      //   handler.fitMapToBounds();
+      // }
 
-  });
-</script>
-<% else %>
-  <p>No addresses provided for product or source products.</p>
-<% end %>
+    });
+  </script>
+  <% else %>
+    <p>No addresses provided for product or source products.</p>
+  <% end %>
+</section>
