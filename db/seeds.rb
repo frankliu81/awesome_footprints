@@ -97,7 +97,7 @@ create_impact_entries(p2)
 p3 = Product.new(name: "p3", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "3",
-                #image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p3)
@@ -121,7 +121,7 @@ create_impact_entries(p5)
 p6 = Product.new(name: "p6", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "6",
-                #image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p6)

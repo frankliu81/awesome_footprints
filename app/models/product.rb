@@ -24,13 +24,29 @@ class Product < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
 
+  geocoded_by :address
+  after_validation :geocode
+
   def find_product_impact_line_item(impact_line_item)
     product_impact_line_items.find_by_impact_line_item_id(impact_line_item.id)
   end
 
-
   def child_quantity(child)
     child_product_rels.find_by_child_id(child).child_quantity
+  end
+
+  # return true if any child product address is present so we can display the map
+  def child_product_addresses_present?
+    children.each do |child|
+      if child.address.present?
+        return true
+      end
+    end
+    false
+  end
+
+  def children_with_address
+    children.where("address IS NOT null")
   end
 
 end

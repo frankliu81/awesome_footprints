@@ -18,4 +18,5 @@
 //= require components
 //= require jquery-ui
 //= require underscore
+//= require gmaps/google
 //= require_tree .

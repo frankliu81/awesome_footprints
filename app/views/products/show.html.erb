@@ -30,6 +30,11 @@
     </p>
 
     <p>
+      <strong>Manufactured Address:</strong>
+      <%= @product.address %>
+    </p>
+
+    <p>
       <strong>Contact E-mail:</strong>
       <%= @product.contact_email %>
     </p>
@@ -111,3 +116,29 @@
     </div>
  </tbody>
 </table>
+
+<h3>Product and Source Products Locations</h3>
+<% if @product.address.present? || @product.child_product_addresses_present? %>
+<div>
+  <div id="map" style='height: 600px;'></div>
+</div>
+
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: { scrollwheel: false, zoomControl: true }, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%= raw products_json(@product.children_with_address).to_json %>);
+
+    handler.bounds.extendWith(markers);
+    // set the zoom differently for a single marker
+    if (markers.length === 1) {
+      handler.fitMapToBounds();
+      handler.getMap().setZoom(17);
+    } else {
+      handler.fitMapToBounds();
+    }
+
+  });
+</script>
+<% else %>
+  <p>No addresses provided for product or source products.</p>
+<% end %>
