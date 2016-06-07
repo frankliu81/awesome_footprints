@@ -5,10 +5,10 @@ class Product < ActiveRecord::Base
   # one product can have many children
   # http://stackoverflow.com/questions/18791874/rails-model-has-many-of-itself/18792091#18792091
   # http://stackoverflow.com/questions/21918002/how-to-model-a-self-referencing-many-to-many-relationship
-  has_many :parent_product_rels, dependent: :nullify, foreign_key: :child_id, class_name: "ProductRel"
+  has_many :parent_product_rels, dependent: :destroy, foreign_key: :child_id, class_name: "ProductRel"
   has_many :parents, through: :parent_product_rels, source: :parent
 
-  has_many :child_product_rels, dependent: :nullify, foreign_key: :parent_id, class_name: "ProductRel"
+  has_many :child_product_rels, dependent: :destroy, foreign_key: :parent_id, class_name: "ProductRel"
   has_many :children, through: :child_product_rels, source: :child
 
   # has_many :parents, class_name: "Product", through: :product_rels, foreign_key: :parent_id
