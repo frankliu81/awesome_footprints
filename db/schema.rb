@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606223006) do
+ActiveRecord::Schema.define(version: 20160605232119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,17 +67,11 @@ ActiveRecord::Schema.define(version: 20160606223006) do
     t.string   "contact_email"
     t.string   "details_url"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "address"
     t.float    "longitude"
     t.float    "latitude"
-    t.string   "start_address"
-    t.float    "start_longitude"
-    t.float    "start_latitude"
-    t.string   "end_address"
-    t.float    "end_longitude"
-    t.float    "end_latitude"
   end
 
   add_index "products", ["barcode"], name: "index_products_on_barcode", unique: true, using: :btree

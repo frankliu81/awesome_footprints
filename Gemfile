@@ -55,6 +55,8 @@ gem 'kaminari-bootstrap'
 gem "fog"
 gem "puma"
 gem 'rails_12factor', group: :production
+gem 'faker', github: 'stympy/faker'
+
 #gem 'delayed_job_active_record'
 #gem 'delayed_job_web'
 gem 'exception_notification'
@@ -75,7 +77,6 @@ group :development, :test do
   gem 'hirb'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'faker', github: 'stympy/faker'
   gem 'cowsay'
   gem 'rails-erd'
 end
