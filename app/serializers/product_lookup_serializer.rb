@@ -1,5 +1,5 @@
 class ProductLookupSerializer < ActiveModel::Serializer
-  attributes :id, :name, :user_full_name, :barcode, :barcode_type, :total_impact
+  attributes :id, :name, :barcode, :barcode_type, :total_impact
 
   def user_full_name
     object.user.full_name
