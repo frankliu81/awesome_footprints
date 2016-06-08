@@ -34,6 +34,36 @@
   }
 }
 
+#awesome-footprint-logo {
+  display: none;
+}
+
+.btn-circle {
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+  padding: 7px 16px;
+  border: 2px solid #009900;
+  border-radius: 35px;
+  font-size: 40px;
+  color:  #009900;
+  background: transparent;
+  -webkit-transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  transition: background .3s ease-in-out;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    color:  #009900;
+    background: transparentize( #009900, 0.9);
+  }
+}
+
+#more-info-button {
+  background-color: #E7E2DD;
+}
+
 #more-info-header {
   /* prevent the more info heading from getting cut off after section transition */
   padding-top: -50px;
@@ -41,16 +71,18 @@
   margin-bottom: 30px;
 }
 
+
 .more-info-subheader {
+  text-align: left;
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
 .more-info-image {
-  width: 600px;
-  height: 400px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  width: 540px;
+  height: 360px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .more-info-container {
@@ -63,5 +95,33 @@
   font-size: 18px;
   line-height: 32px;
   width: 90%;
-  height: 400px;
+  height: 360px;
+}
+
+// about product-image
+#about-us-description {
+  font-size: 18px;
+  line-height: 32px;
+}
+
+.img-circle {
+  width: 300px;
+  height: 300px;
+  border: 10px darkgrey solid;
+  overflow: hidden;
+}
+
+#profile-picture {
+  margin-top: -50px;
+  width: 100%;
+}
+
+#profile-title {
+  font-size: 20px;
+  line-height: 64px;
+}
+
+#profile-description {
+  font-size: 16px;
+  line-height: 32px;
 }

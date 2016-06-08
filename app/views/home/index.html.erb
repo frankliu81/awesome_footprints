@@ -6,10 +6,10 @@
           <div class="container">
               <div class="row">
                   <div class="col-md-8 col-md-offset-2">
-                      <%= image_tag('awesome_footprint_144_144.png') %>
+                      <%= image_tag('awesome_footprint_144_144.png', id: 'awesome-footprint-logo') %>
                       <h1 class="brand-heading">Awesome Footprints</h1>
                       <p class="intro-text">Simple environmental footprint data at your fingertip</p>
-                      <a href="#more-info-section" class="btn btn-circle page-scroll pulse">
+                      <a href="#more-info-section" id="more-info-button" class="btn btn-circle page-scroll pulse">
                           <i class="fa fa-angle-double-down"></i>
                       </a>
                   </div>
@@ -19,24 +19,30 @@
   </header>
 
 
-  <!-- More-infoi Section -->
+  <!-- more-info Section -->
   <section id="more-info-section" class="more-info-container content-section text-center">
       <h1 id="more-info-header">How it works</h1>
       <div class="row">
-          <div class="col-sm-6">
-              <h2 class="more-info-subheader">Manufacturer</h2>
-              <p class="more-info-details">Create an account, and create a new product to associate
-              your product's barcode with a set of simplieid environmental footprint geared toward the consumer. </p>
-              <%= image_tag('android_scan.JPG',class: 'more-info-image') %>
-          </div>
-          <div class="col-sm-6">
-            <%= image_tag('awesome_footprints_web_app_blurred.png', class: 'more-info-image') %>
-            <h2 class="more-info-subheader">Consumer</h2>
-            <p class="more-info-details">Download the soon to be available Awesome Footprints app onto your mobile phone,
-              scan the barcode of the product you are interested in purchasing,
-              and receive instant environmental footprint data.
-            </br/></p>
-          </div>
+        <div class="col-sm-6 more-info-subsection">
+            <h2 class="more-info-subheader">Manufacturer</h2>
+            <p class="more-info-details">Create an account, and create a new product to associate
+            your product's barcode with a set of simplieid environmental footprint geared toward the consumer. </p>
+        </div>
+        <div class="col-sm-6 more-info-subsection">
+          <%= image_tag('awesome_footprints_web_app_blurred.png', class: 'more-info-image') %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 more-info-subsection">
+          <%= image_tag('android_scan.JPG',class: 'more-info-image') %>
+        </div>
+        <div class="col-sm-6 more-info-subsection">
+          <h2 class="more-info-subheader">Consumer</h2>
+          <p class="more-info-details">Download the soon to be available Awesome Footprints app onto your mobile phone,
+            scan the barcode of the product you are interested in purchasing,
+            and receive instant environmental footprint data.
+          </p>
+        </div>
       </div>
   </section>
 

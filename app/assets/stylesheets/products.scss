@@ -34,29 +34,6 @@ a.product-placeholder-link:hover{
   margin-top: 30px;
 }
 
-.btn-circle {
-  width: 70px;
-  height: 70px;
-  margin-top: 15px;
-  padding: 7px 16px;
-  border: 2px solid #009900;
-  border-radius: 35px;
-  font-size: 40px;
-  color:  #009900;
-  background: transparent;
-  -webkit-transition: background .3s ease-in-out;
-  -moz-transition: background .3s ease-in-out;
-  transition: background .3s ease-in-out;
-
-  &:hover,
-  &:focus {
-    outline: none;
-    color:  #009900;
-    background: transparentize( #009900, 0.9);
-  }
-}
-
-
 #source-products-header {
   /* prevent the source products heading from getting cut off*/
   padding-top: -50px;
