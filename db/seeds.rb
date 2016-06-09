@@ -112,7 +112,7 @@ p5 = Product.new(name: "p5", user_id: u1.id,
                 details_url: "http://www.example.com")
 create_impact_entries(p5)
 
-p6 = Product.new(name: "p6", user_id: u1.id,
+p6 = Product.new(name: "Chocolate", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "6",
                 image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
@@ -121,7 +121,7 @@ p6 = Product.new(name: "p6", user_id: u1.id,
                 address: "6138 Bedrock Ct, North Las Vegas, Nevada, USA")
 create_impact_entries(p6)
 
-p7 = Product.new(name: "p7", user_id: u1.id,
+p7 = Product.new(name: "Raisin", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "7",
                 image: File.open(File.join(Rails.root, '/demo_images/p7.png')),
@@ -130,7 +130,7 @@ p7 = Product.new(name: "p7", user_id: u1.id,
                 address: "No. 7, Section 5, Xinyi Rd, Xinyi District, Taipei City, Taiwan ")
 create_impact_entries(p7)
 
-p8 = Product.new(name: "p8", user_id: u1.id,
+p8 = Product.new(name: "Peanut", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "8",
                 image: File.open(File.join(Rails.root, '/demo_images/p8.png')),

@@ -64,7 +64,7 @@
       <% product_impact_line_items = @product.product_impact_line_items %>
       <%# product_impact_line_items.all.each do |product_impact_line_item| %>
       <%# specify relationship to be included in the result sult %>
-      <% product_impact_line_items.includes(:impact_line_item, :impact_entries).each do |product_impact_line_item| %>
+      <% product_impact_line_items.each do |product_impact_line_item| %>
           <tr>
             <th class="headcol" scope="row"><%= product_impact_line_item.impact_line_item.name %></th>
              <% Category.all.each do |category| %>

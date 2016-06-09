@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    #@product_impact_line_items = @product.product_impact_line_items.includes(:impact_line_item, :impact_entries)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
@@ -42,15 +43,7 @@ class ProductsController < ApplicationController
       #byebug
       format.html
       format.json {
-        #render json: @products.map(&:name).to_json
-        # return both id and name from autocomplete as array of array
-        # render json:
-        # {
-        #   product_ids: @products.map(&:id),
-        #   product_names: @products.map(&:name)
-        # }
         render json: @products.map{|p| {label: p.name, value: p.id} }.to_json
-
       }
     end
   end
@@ -144,7 +137,9 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      #@product = Product.find params[:id]
+      @product = Product.where(id: params[:id]).includes(
+        {product_impact_line_items: [:impact_line_item, :impact_entries]}).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

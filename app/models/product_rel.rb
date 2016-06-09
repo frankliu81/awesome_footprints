@@ -6,9 +6,8 @@ class ProductRel < ActiveRecord::Base
   validates :child_id, presence: true
   validates :parent_id, uniqueness: {scope: :child_id}
 
+  # find a specific parent-child relationship
   def self.find_by_parent_child(parent, child)
-    #byebug
-    # return
     ProductRel.where(parent_id: parent.id)
               .find_by_child_id(child.id)
   end
