@@ -71,43 +71,43 @@ clif_bar  = Product.new(name: "Clif Bar", user_id: u1.id,
                 address: "142 W Hastings St, Vancouver, BC, Canada")
 create_impact_entries(clif_bar)
 
-p1 = Product.new(name: "p1", user_id: u1.id,
+p1 = Product.new(name: "Nike Shoes", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "1",
-                image: File.open(File.join(Rails.root, '/demo_images/p1.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Nike_Shoes.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p1)
 
-p2 = Product.new(name: "p2", user_id: u1.id,
+p2 = Product.new(name: "Codecore T-Shirt", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "2",
-                image: File.open(File.join(Rails.root, '/demo_images/p2.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/CodeCore_Tshirt.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p2)
 
-p3 = Product.new(name: "p3", user_id: u1.id,
+p3 = Product.new(name: "Spalding Basketball", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "3",
-                image: File.open(File.join(Rails.root, '/demo_images/p3.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Spalding_Basketball.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com",
                 address: "142 W Hastings St, Vancouver, BC, Canada")
 create_impact_entries(p3)
 
-p4 = Product.new(name: "p4", user_id: u1.id,
+p4 = Product.new(name: "Backpack", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "4",
-                image: File.open(File.join(Rails.root, '/demo_images/p4.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Backpack.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p4)
 
-p5 = Product.new(name: "p5", user_id: u1.id,
+p5 = Product.new(name: "Bicycle", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "5",
-                image: File.open(File.join(Rails.root, '/demo_images/p5.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Bicycle.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com")
 create_impact_entries(p5)
@@ -124,7 +124,7 @@ create_impact_entries(p6)
 p7 = Product.new(name: "Raisin", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "7",
-                image: File.open(File.join(Rails.root, '/demo_images/p7.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Raisins.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com",
                 address: "No. 7, Section 5, Xinyi Rd, Xinyi District, Taipei City, Taiwan ")
@@ -133,7 +133,7 @@ create_impact_entries(p7)
 p8 = Product.new(name: "Peanut", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "8",
-                image: File.open(File.join(Rails.root, '/demo_images/p8.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Peanuts.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com",
                 address: "4-1-2, Hiranomachi, Chuo-ku, Osaka, Japan")
