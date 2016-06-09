@@ -104,6 +104,32 @@
   line-height: 32px;
 }
 
+#cohort-12-button {
+  background: transparent;
+  border: none !important;
+  font-size:0;
+  width: 100px;
+  height: 50px;
+}
+
+#cohort-12-msg {
+  display: none;
+  font-size: 100px;
+  color: #CC0000;
+  margin-top: 300px;
+  line-height: 120px;
+  text-align: center;
+  position: relative;
+}
+
+#cohort-12-img {
+  display: none;
+  width: 1023px;
+  height: 682px;
+  background-image: url(image-path('codecore_2016-3-24.jpg'));
+  position: relative;
+}
+
 .img-circle {
   width: 300px;
   height: 300px;
