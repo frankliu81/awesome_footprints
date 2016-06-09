@@ -115,7 +115,7 @@ create_impact_entries(p5)
 p6 = Product.new(name: "Chocolate", user_id: u1.id,
                 description: Faker::Hipster.paragraph,
                 barcode_type: "UPC_A", barcode: "6",
-                image: File.open(File.join(Rails.root, '/demo_images/p6.png')),
+                image: File.open(File.join(Rails.root, '/demo_images/Chocolate_Chips.jpg')),
                 contact_email: "codecorefrank@gmail.com",
                 details_url: "http://www.example.com",
                 address: "6138 Bedrock Ct, North Las Vegas, Nevada, USA")

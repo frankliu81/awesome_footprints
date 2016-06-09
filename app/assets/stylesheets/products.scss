@@ -3,24 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // product index page
-.products > div {
+.products {
   height: 200px;
 }
 
-.product-placeholder-image {
-  width: 160px;
-  height: 160px;
-  border:1px solid #021a40;
-  display: flex;
-  justify-content:center;
-  align-content:center;
-  flex-direction:column;
-  text-align: center;
-  line-height: 1.5em;
-  font-size: 1.5em;
+.product-index-image-container-with-name {
+  margin-bottom: 20px;
 }
 
-a.product-placeholder-link:hover{
+.product-index-image-container {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid #021a40;
+}
+
+.product-index-image {
+  max-width: 160px;
+}
+
+.product-index-placeholder-name {
+  font-size: 2em;
+  line-height: 2em;
+  text-align: center;
+}
+
+a.product-index-placeholder-link:hover{
   color: black;
   text-decoration:none;
 }
