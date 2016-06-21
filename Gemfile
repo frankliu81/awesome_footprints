@@ -63,7 +63,7 @@ gem 'exception_notification'
 gem 'sidekiq'
 gem 'active_model_serializers'
 gem 'react-rails'
-
+gem 'hirb'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -74,7 +74,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'interactive_editor'
   gem 'awesome_print'
-  gem 'hirb'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'cowsay'
